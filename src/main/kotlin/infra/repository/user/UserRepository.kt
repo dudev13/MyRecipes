@@ -4,10 +4,8 @@ import com.br.domain.entity.User
 import com.br.utils.Constants
 import com.br.utils.ErrorCodes
 import com.mongodb.MongoException
-import com.mongodb.MongoExecutionTimeoutException
 import com.mongodb.client.model.Filters
 import com.mongodb.kotlin.client.coroutine.MongoDatabase
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.toList
 import org.bson.types.ObjectId

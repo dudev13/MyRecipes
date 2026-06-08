@@ -1,6 +1,5 @@
 package com.br.infra.repository.user
 
-import com.br.domain.entity.Basic
 import com.br.domain.entity.User
 
 interface UserReadOnlyRepository {
