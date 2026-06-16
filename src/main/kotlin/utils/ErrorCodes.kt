@@ -46,7 +46,7 @@ enum class ErrorCodes(val message: String) {
     EMAIL_REQUIRED("O e-mail deve ser informado"),
     INVALID_EMAIL("O email é invalido."),
     PASSWORD_REQUIRED("O senha deve ser informada"),
-    PASSWORD_TOO_SHORT("A senha deve conter no minuimo 6 caracteres"),
+    PASSWORD_TOO_SHORT("A senha deve conter no minimo 6 caracteres"),
     PHONE_REQUIRED("O telefone deve ser informado"),
     INVALID_PHONE_FORMAT("O telefone deve estar no formato XX X XXXX-XXXX"),
 

@@ -5,12 +5,12 @@ import com.br.application.payloads.responses.SimpleResponse
 import com.br.utils.ErrorCodes
 import com.br.utils.SuccessCodes
 
-fun interface AddValidationUserService{
+fun interface AddValidationUserRequest{
     suspend fun validator(request: AddUserRequest): SimpleResponse
 }
 
 
-class AddValidationUserServiceImpl : AddValidationUserService {
+class AddValidationUserRequestImpl : AddValidationUserRequest {
 
     private val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$".toRegex()
     private val phoneRegex = "[0-9]{2} [1-9]{1} [0-9]{4}-[0-9]{4}".toRegex()

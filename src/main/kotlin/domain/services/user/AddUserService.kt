@@ -3,23 +3,24 @@ package com.br.domain.services.user
 import com.br.application.payloads.requests.AddUserRequest
 import com.br.application.payloads.responses.SimpleResponse
 import com.br.domain.entity.User
-import com.br.domain.validations.AddValidationUserService
+import com.br.domain.services.password.BCryptPasswordService
+import com.br.domain.validations.AddValidationUserRequest
 import com.br.infra.repository.user.UserReadOnlyRepository
 import com.br.infra.repository.user.UserWriteOnlyRepository
 import com.br.utils.Constants
 import com.br.utils.ErrorCodes
 import com.br.utils.SuccessCodes
-import io.ktor.client.request.request
 
 class AddUserService(
-    private val addValidationUserService: AddValidationUserService,
+    private val addValidationUserRequest: AddValidationUserRequest,
+    private val bCryptPasswordService: BCryptPasswordService,
     private val userWriteOnlyRepository: UserWriteOnlyRepository,
     private val userReadOnlyRepository: UserReadOnlyRepository
 ) {
 
     suspend fun addUser(addUserRequest: AddUserRequest): SimpleResponse {
 
-        val simpleResponse = addValidationUserService.validator(addUserRequest)
+        val simpleResponse = addValidationUserRequest.validator(addUserRequest)
         if(!simpleResponse.successful) {
             return simpleResponse
         }
@@ -28,10 +29,12 @@ class AddUserService(
             return SimpleResponse(successful = false, message = ErrorCodes.EMAIL_ALREADY_USED.message)
         }
 
+        val hashedPassword = bCryptPasswordService.hashedPassword(Constants.COST_FACTOR, addUserRequest.password)
+
         val user = User(
             name = addUserRequest.name,
             email = addUserRequest.email,
-            password = addUserRequest.password,
+            password = hashedPassword,
             phone = addUserRequest.phone
         )
 
