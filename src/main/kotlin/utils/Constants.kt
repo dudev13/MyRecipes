@@ -2,8 +2,9 @@ package com.br.utils
 
 object Constants {
 
-    const val MONGODB_URI_LOCAL = "MONGODB_URI_LOCAL"
     const val DATABASE_NAME = "DATABASE_NAME"
+    const val MONGODB_URI_LOCAL = "MONGODB_URI_LOCAL"
+    const val MONGODB_URI_REMOTE = "MONGODB_URI_REMOTE"
     const val COST_FACTOR = 16
     const val DURATION_IN_SECONDS_QRCODE = 40
 
