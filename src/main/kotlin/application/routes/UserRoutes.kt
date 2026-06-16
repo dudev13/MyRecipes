@@ -18,9 +18,7 @@ import io.ktor.server.routing.route
 
 fun Route.userRoute(addUserService: AddUserService){
     route(Constants.USER_ROUTE){
-        authenticate("auth-jwt") {
             createUser(addUserService)
-        }
     }
 }
 
