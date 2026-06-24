@@ -43,4 +43,6 @@ object Constants {
     const val OPERATION_CANCELED_BY_USER_MESSAGE = "Operação cancelada pelo usuário."
 
     const val MONGODB_ID = "_id"
+
+    const val SECRET = "SECRET"
 }
