@@ -1,7 +1,9 @@
 package com.br.application.routes
 
 import com.br.application.payloads.requests.AddUserRequest
+import com.br.application.payloads.requests.AuthUserRequest
 import com.br.domain.services.user.AddUserService
+import com.br.domain.services.user.LoginUserService
 import com.br.utils.Constants
 import com.br.utils.ErrorCodes
 import io.ktor.client.plugins.ServerResponseException
@@ -9,16 +11,40 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.application
 import io.ktor.server.application.call
 import io.ktor.server.application.log
-import io.ktor.server.auth.authenticate
 import io.ktor.server.request.receiveNullable
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 
-fun Route.userRoute(addUserService: AddUserService){
+fun Route.userRoute(
+    addUserService: AddUserService,
+    loginUserService: LoginUserService
+){
     route(Constants.USER_ROUTE){
-            createUser(addUserService)
+        createUser(addUserService)
+        loginUser(loginUserService)
+    }
+}
+
+fun Route.loginUser(loginUserService: LoginUserService){
+    post("/login") {
+        try {
+            val request = call.receiveNullable<AuthUserRequest>()
+            if (request != null){
+                val simpleResponse = loginUserService.loginUser(request)
+                if(simpleResponse.successful){
+                    call.respond(HttpStatusCode.OK, simpleResponse)
+                }else{
+                    call.respond(HttpStatusCode.BadRequest, simpleResponse)
+                }
+            }else{
+                call.respond(HttpStatusCode.BadRequest, ErrorCodes.UNKNOWN_ERROR.message)
+            }
+        }catch (e: ServerResponseException){
+            application.log.error(e.message)
+            call.respond(HttpStatusCode.BadRequest)
+        }
     }
 }
 
