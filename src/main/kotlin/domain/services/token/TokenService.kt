@@ -3,8 +3,6 @@ package com.br.domain.services.token
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTVerificationException
-import com.auth0.jwt.interfaces.JWTVerifier
-import com.br.domain.entity.User
 import com.br.utils.Constants
 import com.br.utils.ErrorCodes
 
@@ -23,7 +21,6 @@ class TokenService {
 
     fun realm() = realm
     fun audience() = audience
-    fun verifier(): JWTVerifier = verifier
 
     fun generateToken(userId: String): String {
         return try {
@@ -32,22 +29,8 @@ class TokenService {
                 .withAudience(audience)
                 .withIssuer(issuer)
                 .sign(algorithm)
-        }catch (ex: JWTVerificationException){
+        }catch (e: JWTVerificationException){
             throw IllegalArgumentException(ErrorCodes.TOKEN_GENERATION_ERROR.message)
-        }
-    }
-
-    fun retrieveIdByToken(token: String): String {
-        return try{
-            val decodedJwt = JWT.require(algorithm)
-                .withAudience(audience)
-                .withIssuer(issuer)
-                .build()
-                .verify(token)
-            decodedJwt.subject
-
-        }catch (ex: JWTVerificationException){
-            throw IllegalArgumentException(ErrorCodes.INVALID_TOKEN.message)
         }
     }
 }
