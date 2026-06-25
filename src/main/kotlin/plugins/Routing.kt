@@ -2,6 +2,7 @@ package com.br.plugins
 
 import com.br.application.routes.userRoute
 import com.br.domain.services.user.AddUserService
+import com.br.domain.services.user.GetProfileUserService
 import com.br.domain.services.user.LoginUserService
 import io.ktor.server.application.*
 import io.ktor.server.routing.Routing
@@ -11,8 +12,9 @@ fun Application.configureRouting() {
 
     val addUserService by inject<AddUserService>()
     val loginUserService by inject<LoginUserService>()
+    val getProfileUserService by inject<GetProfileUserService>()
 
     install(Routing){
-        userRoute(addUserService, loginUserService)
+        userRoute(addUserService, loginUserService, getProfileUserService)
     }
 }
