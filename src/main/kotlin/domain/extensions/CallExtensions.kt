@@ -2,6 +2,7 @@ package com.br.domain.extensions
 
 import com.br.domain.entity.User
 import com.br.domain.exceptions.UserAuthenticationNotFoundException
+import com.br.utils.ErrorCodes
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.auth.authentication
 
@@ -11,6 +12,6 @@ fun ApplicationCall.getUserAuthentication(): String{
     if(userModel != null){
         return userModel.id
     }else{
-        throw UserAuthenticationNotFoundException("Não foi possível obter o usuário logado")
+        throw UserAuthenticationNotFoundException(ErrorCodes.USER_NOT_LOGGED_IN.message)
     }
 }

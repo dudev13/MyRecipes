@@ -49,6 +49,10 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.10")
     testImplementation("com.google.truth:truth:1.4.2")
 
+
+
+    testImplementation(libs.ktor.server.tests)
     testImplementation(libs.ktor.server.test.host)
     testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.kotlin.test)
 }

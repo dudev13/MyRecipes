@@ -12,8 +12,8 @@ import com.br.utils.SuccessCodes
 class LoginUserService(
     private val tokenService: TokenService,
     private val bCryptPasswordService: BCryptPasswordService,
-    private val userReadOnlyRepository: UserReadOnlyRepository,
-    private val authUserRequestValidation: AuthUserRequestValidation
+    private val authUserRequestValidation: AuthUserRequestValidation,
+    private val userReadOnlyRepository: UserReadOnlyRepository
 ) {
 
     suspend fun loginUser(request: AuthUserRequest): TokenResponse {
